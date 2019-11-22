@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+}
+
+group 'at.ac.tuwien.ifs.sge'
+version '1.0.0'
+
+sourceCompatibility = 1.11
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile group: 'at.ac.tuwien.ifs.sge', name: 'sge', version: '0.2.0'
+    compile group: 'at.ac.tuwien.ifs.sge', name: 'sge-risk', version: '0.1.0'
+}
+
+jar {
+    manifest {
+        attributes 'Sge-Type': 'agent'
+        attributes 'Agent-Class': 'at.ac.tuwien.ifs.sge.agent.risk.RiskAgent'
+        attributes 'Agent-Name': 'RiskAgent'
+    }
+}

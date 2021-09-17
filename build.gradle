@@ -5,40 +5,59 @@ plugins {
 }
 
 group 'at.ac.tuwien.ifs.sge'
-version '1.0.1'
+version '1.0.3-SNAPSHOT'
 
 sourceCompatibility = 1.11
 
 repositories {
-    jcenter()
+    mavenCentral() // Typical dependencies like 'google-guava'
+
+    //Choose *one* of the following (comment the other):
+
+    //jitpack - no github account or further configuration needed
+    maven { url 'https://jitpack.io' }
+
+    /* Github Packages - as of 2021 still needs credentials:
+     create file 'gradle.properties' in the project's root directory
+     ```gradle.properties
+     github.actor=Username
+     github.token=TOKEN
+     ```
+     DO NOT USE QUOTES! If you do not have a PAT yet see
+     https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+     */
+    /*
+    maven {
+        url = uri("https://maven.pkg.github.com/Entze/Strategy-Game-Engine")
+        credentials {
+            username = project.findProperty("gpr.user") ?: findProperty("github.actor") ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") ?: findProperty("github.token") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+    maven {
+        url = uri("https://maven.pkg.github.com/Entze/sge-risk")
+        credentials {
+            username = project.findProperty("gpr.user") ?: findProperty("github.actor") ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") ?: findProperty("github.token") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+    */
 }
 
 dependencies {
-    compile group: 'at.ac.tuwien.ifs.sge', name: 'sge', version: '1.0.1'
-    compile group: 'at.ac.tuwien.ifs.sge', name: 'sge-risk', version: '1.0.1'
+    implementation 'com.github.Entze:Strategy-Game-Engine:main-SNAPSHOT'
+    implementation 'com.github.Entze:sge-risk:main-SNAPSHOT'
+
+    // only uncomment this if you are using github packages
+    //implementation 'at.ac.tuwien.ifs.sge:sge:1.0.3'
+    //implementation 'at.ac.tuwien.ifs.sge:sge-risk:1.0.3'
+
 }
 
 jar {
     manifest {
-        attributes 'Sge-Type': 'agent'
-        attributes 'Agent-Class': 'at.ac.tuwien.ifs.sge.agent.risk.RiskAgent'
-        attributes 'Agent-Name': 'RiskAgent'
+        attributes 'Sge-Type': 'agent' // do not change this
+        attributes 'Agent-Class': 'at.ac.tuwien.ifs.sge.agent.risk.RiskAgent' // Point to the agent's class
+        attributes 'Agent-Name': 'RiskAgent' // Change this to your agent's name
     }
 }
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    archiveClassifier.set('sources')
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier.set('javadoc')
-    from javadoc.destinationDir
-}
-
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-

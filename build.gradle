@@ -12,20 +12,25 @@ sourceCompatibility = 1.11
 repositories {
     mavenCentral() // Typical dependencies like 'google-guava'
 
-    //Choose *one* of the following (comment the other):
+    // Choose *one* of the following (comment the other):
 
-    //jitpack - no github account or further configuration needed
+    // Option 1 (recommended)
+    // jitpack - no github/gitlab account or further configuration needed
     maven { url 'https://jitpack.io' }
 
+    // Option 2
     /* Github Packages - as of 2021 still needs credentials:
      create file 'gradle.properties' in the project's root directory
      ```gradle.properties
      github.actor=Username
      github.token=TOKEN
      ```
-     DO NOT USE QUOTES! If you do not have a PAT yet see
+     DO NOT USE QUOTES!
+
+     If you do not have a PAT yet see
      https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
      */
+
     /*
     maven {
         url = uri("https://maven.pkg.github.com/Entze/Strategy-Game-Engine")
@@ -45,12 +50,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.Entze:Strategy-Game-Engine:main-SNAPSHOT'
-    implementation 'com.github.Entze:sge-risk:main-SNAPSHOT'
+    implementation 'com.gitlab.StrategyGameEngine:strategy-game-engine:v1.0.4'
+    implementation 'com.gitlab.StrategyGameEngine:sge-risk:v1.0.4'
 
     // only uncomment this if you are using github packages
-    //implementation 'at.ac.tuwien.ifs.sge:sge:1.0.3'
-    //implementation 'at.ac.tuwien.ifs.sge:sge-risk:1.0.3'
+    //implementation 'at.ac.tuwien.ifs.sge:sge:1.0.4'
+    //implementation 'at.ac.tuwien.ifs.sge:sge-risk:1.0.4'
 
 }
 
